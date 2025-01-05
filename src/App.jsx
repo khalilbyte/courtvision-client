@@ -1,13 +1,13 @@
-import { Route, Routes } from "react-router";
-import Navbar from "./components/Navbar";
-import PlayersPage from "./components/PlayersPage";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/ui/Navbar";
+import PlayersPage from "./components/pages/PlayersPage";
 
 const App = () => {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/players" Component={PlayersPage}></Route>
+        <Route path="/players" element={<PlayersPage />}></Route>
       </Routes>
     </>
   );

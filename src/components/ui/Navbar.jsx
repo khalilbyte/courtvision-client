@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router";
-import menuIcon from "../assets/hamburger-menu.png";
-import closeMenuIcon from "../assets/x.png";
+import { Link } from "react-router-dom";
+import menuIcon from "../../assets/hamburger-menu.png";
+import closeMenuIcon from "../../assets/x.png";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isNavLinksOpen, setIsNavLinksOpen] = useState(false);
   const navRef = useRef();
 
@@ -47,32 +47,32 @@ const Navbar = () => {
   return (
     <nav className="navbar h-[5rem] border-2 border-green-500 flex items-center mb-8">
       <div className="navbar-content border-2 border-slate-500 w-full max-w-[1500px] mx-auto px-4 flex items-center justify-between relative">
-        <NavLink to={"/"}>
-          <p className="text-2xl font-bold">CourtVision</p>
-        </NavLink>
+        <a href="/" className="text-3xl font-bold">
+          CourtVision
+        </a>
         <ul
-          className={`navbar-links absolute top-full left-0 right-0  bg-slate-100 md:static md:flex  ${
+          className={`navbar-links absolute top-full left-0 right-0 md:static md:flex  ${
             isNavLinksOpen ? "" : "hidden"
           }`}
           ref={navRef}
         >
           <li className="navbar-link text-lg border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/"}>Home</NavLink>
+            <Link to={"/"}>Home</Link>
           </li>
           <li className="navbar-link text-lg  border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/stats"}>Stats</NavLink>
+            <Link to={"/stats"}>Stats</Link>
           </li>
           <li className="navbar-link text-lg  border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/players"}>Players</NavLink>
+            <Link to={"/players"}>Players</Link>
           </li>
           <li className="navbar-link text-lg  border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/teams"}>Teams</NavLink>
+            <Link to={"/teams"}>Teams</Link>
           </li>
           <li className="navbar-link text-lg border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/watchlist"}>Watchlist</NavLink>
+            <Link to={"/watchlist"}>Watchlist</Link>
           </li>
           <li className="navbar-link text-lg border py-3 font-semibold px-1 transition-all duration-200 active:bg-slate-200 md:border-none md:hover:rounded md:px-4">
-            <NavLink to={"/profile"}>Profile</NavLink>
+            <Link to={"/profile"}>Profile</Link>
           </li>
         </ul>
         <img
@@ -85,6 +85,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const PlayerCard = ({ player }) => {
+export default function PlayerCard({ player }) {
   return (
     <div className="group h-[420px] w-[280px]">
       {/* Card Container */}
@@ -53,6 +53,4 @@ const PlayerCard = ({ player }) => {
       </div>
     </div>
   );
-};
-
-export default PlayerCard;
+}
