@@ -42,54 +42,54 @@ export default function SearchBar({ onSearchResults }) {
   };
 
   return (
-    <div className="mb-4 mx-auto max-w-[1200px] flex justify-end">
-      <form
-        onSubmit={handleSubmit}
-        className={`relative rounded-lg border ${
-          isFocused ? "border-blue-500 shadow-lg" : "border-gray-200"
-        } transition-all duration-200`}
-      >
-        <div className="flex items-center px-4 py-2">
-          <Search
-            size={20}
-            className={`
+    <form
+      onSubmit={handleSubmit}
+      className={`relative rounded-lg border ${
+        isFocused ? "border-blue-500 shadow-lg" : "border-gray-200"
+      } transition-all duration-200`}
+    >
+      <div className="flex items-center px-4 py-2">
+        <Search
+          size={20}
+          className={`
             ${isFocused ? "text-blue-500" : "text-gray-400"}
             transition-colors duration-200
           `}
-          />
+        />
 
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            ref={inputRef}
-            placeholder="Search..."
-            className="
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          ref={inputRef}
+          placeholder="Search..."
+          className="
             w-full px-3 py-1
             bg-transparent
             focus:outline-none
             placeholder:text-gray-400
           "
-          />
+        />
 
-          {searchTerm && (
-            <button
-              type="button"
-              className="
+        {searchTerm && (
+          <button
+            type="button"
+            onClick={() => setSearchTerm("")}
+            className="border-2 border-green-500
               p-1 rounded-full
               hover:bg-gray-100
               transition-colors duration-200
             "
-            >
-              <X size={16} className="text-gray-400" />
-            </button>
-          )}
+          >
+            <X size={16} className="text-gray-400" />
+          </button>
+        )}
 
-          <button
-            type="submit"
-            className="
+        <button
+          type="submit"
+          className="
             ml-2 px-4 py-1
             bg-blue-500 text-white
             rounded-md
@@ -97,11 +97,10 @@ export default function SearchBar({ onSearchResults }) {
             transition-colors duration-200
             flex items-center gap-2
           "
-          >
-            Search
-          </button>
-        </div>
-      </form>
-    </div>
+        >
+          Search
+        </button>
+      </div>
+    </form>
   );
 }

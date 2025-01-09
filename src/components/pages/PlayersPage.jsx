@@ -16,8 +16,10 @@ export default function PlayersPage() {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [isShowingSearchResults, setIsShowingSearchResults] = useState(false);
   const [error, setError] = useState(null);
   const containerRef = useRef(null);
+  const clearResultButton = useRef(null);
 
   const fetchPlayers = useCallback(async (page) => {
     try {
@@ -61,20 +63,46 @@ export default function PlayersPage() {
     setPlayers(searchResults);
     setError(errorMessage);
     setHasMore(false);
+    setIsShowingSearchResults(true);
+  };
+
+  const removeSearchResults = () => {
+    setPlayers([]);
+    setError(null);
+    setHasMore(true);
+    fetchPlayers(1);
+    setIsShowingSearchResults(false);
   };
 
   return (
-    <>
-      <h1 className="text-3xl text-left mx-auto mb-4 max-w-[1200px] font-semibold border-2 border-blue-600">
-        All Players
-      </h1>
+    <div className="container mx-auto w-[90%] max-w-[1200px] border-2 border-green-500">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-2 border-blue-500">
+        <h1 className="text-3xl font-semibold">All Players</h1>
+        {isShowingSearchResults && (
+          <div className="flex items-center gap-x-3">
+            <button
+              type="button"
+              onClick={removeSearchResults}
+              ref={clearResultButton}
+              className="px-4 py-1
+              bg-blue-500 text-white
+              rounded-md
+              hover:bg-blue-600
+              transition-colors duration-200"
+            >
+              Clear Results
+            </button>
+            <SearchBar onSearchResults={updatePlayersFromSearch} />
+          </div>
+        )}
+        {!isShowingSearchResults && (
+          <div className="flex items-center gap-x-3">
+            <SearchBar onSearchResults={updatePlayersFromSearch} />
+          </div>
+        )}
+      </div>
 
-      <SearchBar onSearchResults={updatePlayersFromSearch} />
-
-      <div
-        ref={containerRef}
-        className="container mx-auto px-4 py-8 max-w-[1200px] border-2 border-blue-600"
-      >
+      <div ref={containerRef} className="py-8">
         {error ? (
           <div className="text-center py-8">
             <p className="text-xl">{error}</p>
@@ -82,12 +110,12 @@ export default function PlayersPage() {
         ) : loading ? (
           <LoadingSpinner />
         ) : players.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {players.map((player) => (
-              <div key={player.player_id} className="flex justify-center">
-                <PlayerCard player={player} />
-              </div>
-            ))}
+          <div className="flex justify-center">
+            <div className="w-[360px] sm:w-[744px] md:w-[872px] lg:w-[1172px] flex justify-center flex-wrap gap-4 border-2 border-red-500">
+              {players.map((player) => (
+                <PlayerCard key={player.player_id} player={player} />
+              ))}
+            </div>
           </div>
         ) : (
           <div className="text-center py-8">
@@ -95,6 +123,6 @@ export default function PlayersPage() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
